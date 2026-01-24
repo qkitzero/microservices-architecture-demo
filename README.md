@@ -5,17 +5,23 @@
 
 ```mermaid
 flowchart TD
-    subgraph server[Server]
+    user(User)
+
+    subgraph local[Local]
         auth_service(Auth Service)
         auth_service_gateway(Auth Service Gateway)
         user_service(User Service)
         user_service_gateway(User Service Gateway)
+
+        user_db[(User DB)]
     end
 
     subgraph external[External]
         auth0(Auth0)
-        user_db[(User DB)]
     end
+
+    user --> auth_service_gateway
+    user --> user_service_gateway
 
     auth_service_gateway --> auth_service --> auth0
     user_service_gateway --> user_service
